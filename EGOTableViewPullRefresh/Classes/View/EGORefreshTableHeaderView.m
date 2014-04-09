@@ -38,7 +38,7 @@
 @implementation EGORefreshTableHeaderView
 
 @synthesize delegate = _delegate;
-
+@synthesize dateFormatter = _dateFormatter;
 
 - (id)initWithFrame:(CGRect)frame arrowImageName:(NSString *)arrow textColor:(UIColor *)textColor backgroundColor:(UIColor *)backgroundColor {
     if ((self = [super initWithFrame:frame])) {
@@ -111,14 +111,21 @@
 
         NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
 
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        if (date) {
+            [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
+            NSDateFormatter *dateFormatter;
+            if (_dateFormatter) {
+                dateFormatter = _dateFormatter;
+            } else {
+                dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+                [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+                [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            }
 
-        _lastUpdatedLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:date]];
-        [[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+            _lastUpdatedLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:date]];
+            [[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
 
     } else {
 
