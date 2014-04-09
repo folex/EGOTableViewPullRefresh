@@ -6,8 +6,7 @@ Pod::Spec.new do |s|
   s.summary  = 'A similar control to the pull down to refresh control created by atebits in Tweetie 2.'
   s.homepage = 'https://github.com/folex/EGOTableViewPullRefresh.git'
   s.author   = { 'Devin Doty' => 'devin.r.doty@gmail.com' }
-  s.source   = { :git    => 'https://github.com/enormego/EGOTableViewPullRefresh.git',
-                 :commit => '743679ffeb6ac02f0afffaac46f318dd2ce6122e' }
+  s.source   = { :git    => 'https://github.com/folex/EGOTableViewPullRefresh.git' }
 
   s.source_files = 'EGOTableViewPullRefresh/Classes/View/*.{h,m}'
   s.resources    = 'EGOTableViewPullRefresh/Resources/*.png'
